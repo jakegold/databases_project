@@ -56,7 +56,6 @@ def registerAuth():
 		cursor.close()
 		return render_template('index.html')
 
-
 #Authenticates the login
 @app.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
@@ -84,19 +83,20 @@ def loginAuth():
 		error = 'Invalid login or username'
 		return render_template('login.html', error=error)
 
-
 @app.route('/home')
 def home():
 	username = session['username']
-	# cursor = conn.cursor();
-	# query = 'SELECT ts, blog_post FROM blog WHERE username = %s ORDER BY ts DESC'
-	# cursor.execute(query, (username))
-	# data = cursor.fetchall()
-	# cursor.close()
-	data = ['cisi',]
+	cursor = conn.cursor();
+	query = 'SELECT title, release_year, rating FROM movie'
+	cursor.execute(query,)
+	data = cursor.fetchall()
+	cursor.close()
 	return render_template('home.html', username=username, posts=data)
 
-
+@app.route('/logout')
+def logout():
+	session.pop('username')
+	return redirect('/')
 
 
 
