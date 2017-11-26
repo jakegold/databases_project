@@ -99,7 +99,7 @@ def home():
 @app.route('/logout')
 def logout():
     session.pop('username')
-    return redirct('/')
+    return redirect('/')
 
 
 
