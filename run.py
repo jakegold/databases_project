@@ -96,6 +96,11 @@ def home():
 	data = ['cisi',]
 	return render_template('home.html', username=username, posts=data)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return render_template('logout.html')
+
 
 
 
