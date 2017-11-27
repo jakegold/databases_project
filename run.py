@@ -98,6 +98,16 @@ def movies():
 	cursor.close()
 	return render_template('movies.html', username=username, posts=data)
 
+@app.route('/bands')
+def bands():
+	username = session['username']
+	cursor = conn.cursor();
+	query = 'SELECT title FROM band'
+	cursor.execute(query,)
+	data = cursor.fetchall()
+	cursor.close()
+	return render_template('bands.html', username=username, posts=data)
+
 @app.route('/logout')
 def logout():
 	session.pop('username')
