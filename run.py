@@ -1,7 +1,7 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
 import pymysql.cursors
-
+import hashlib
 #Initialize the app from Flask
 app = Flask(__name__)
 app.secret_key = 'a super secret key'
@@ -9,8 +9,8 @@ app.secret_key = 'a super secret key'
 #Configure MySQL
 conn = pymysql.connect(host='localhost',
                        user='root',
-                       password='erffy',
-                       db='project',
+                       password='',
+                       db='pricosha',
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 
@@ -39,7 +39,7 @@ def registerAuth():
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s'
+	query = 'SELECT * FROM person WHERE username = %s'
 	cursor.execute(query, (username))
 	#stores the results in a variable
 	data = cursor.fetchone()
@@ -50,8 +50,9 @@ def registerAuth():
 		error = "This user already exists"
 		return render_template('register.html', error = error)
 	else:
-		ins = 'INSERT INTO user (username, password) VALUES(%s, MD5(%s))'
-		cursor.execute(ins, (username, password))
+		ins = 'INSERT INTO person (username, password) VALUES(%s, %s)'
+		p = hashlib.md5(password).hexdigest()
+		cursor.execute(ins, (username, p))
 		conn.commit()
 		cursor.close()
 		return render_template('index.html')
@@ -67,8 +68,9 @@ def loginAuth():
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s and password = MD5(%s)'
-	cursor.execute(query, (username, password))
+	query = 'SELECT * FROM person WHERE username = %s and password = %s'
+	p = hashlib.md5(password).hexdigest()
+	cursor.execute(query, (username, p))
 	#stores the results in a variable
 	data = cursor.fetchone()
 	#use fetchall() if you are expecting more than 1 data row
@@ -97,14 +99,17 @@ def home():
 	return render_template('home.html', username=username, posts=data)
 
 
-@app.route('/user_content')
+@app.route('/user_content', methods=['GET', 'POST'])
 def user_content():
         user = session['username']
         cursor = conn.cursor();
         query = 'SELECT * FROM content WHERE content.username = %s OR public = TRUE OR content.id IN (SELECT id FROM share WHERE group_name IN (SELECT group_name FROM member WHERE username = %s)) ORDER BY content.timest DESC'
-        cursor.execute(query, user)
+        cursor.execute(query, (user,user))
         data = cursor.fetchall()
         return render_template('content.html', username = user, posts=data)
+
+if __name__ == "__main__":
+	app.run('127.0.0.1', 5000, debug = True)
 
 
 
