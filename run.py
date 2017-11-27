@@ -108,6 +108,26 @@ def bands():
 	cursor.close()
 	return render_template('bands.html', username=username, posts=data)
 
+@app.route('/albums')
+def albums():
+	username = session['username']
+	cursor = conn.cursor();
+	query = 'SELECT title FROM album'
+	cursor.execute(query,)
+	data = cursor.fetchall()
+	cursor.close()
+	return render_template('albums.html', username=username, posts=data)
+
+@app.route('/songs')
+def songs():
+	username = session['username']
+	cursor = conn.cursor();
+	query = 'SELECT title FROM song'
+	cursor.execute(query,)
+	data = cursor.fetchall()
+	cursor.close()
+	return render_template('songs.html', username=username, posts=data)
+
 @app.route('/logout')
 def logout():
 	session.pop('username')
