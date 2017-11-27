@@ -3,33 +3,16 @@
 </head>
 <body>
 	<h1>Welcome {{username}}</h1> 
-<!-- <form action="/post" method="POST">
-	<h1>Welcome {{username}}</h1> 
-	<input type="text" name = "blog" placeholder="post" required/> </br>
-	<input type="submit" value = Post />
-</form> -->
 
-<style type="text/css">
-	table, th, td{
-		border: 1px solid black;
-	}
-</style>
+	<h2>What would you like to do?</h2>
 
+	<a href="/movies">Movies</a>
+	<a href="/albums">Albums</a>
+	<a href="/songs">Songs</a>
 
-<table>
-	<th>Movie</th>
-	<th>Release Year</th>
-	<th>Rating</th>
-
-{% for line in posts %}
-	<tr>
-		<td>{{line.title}}</td>
-		<td>{{line.release_year}}</td>
-		<td>{{line.rating}}</td>
-	</tr>
-{% endfor %}
-</table>
-
+<br>
+<br>
+<br>
 <a href="/logout">Logout</a>
 
 </body>
