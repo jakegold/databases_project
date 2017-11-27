@@ -86,20 +86,22 @@ def loginAuth():
 @app.route('/home')
 def home():
 	username = session['username']
+	return render_template('home.html', username=username)
+
+@app.route('/movies')
+def movies():
+	username = session['username']
 	cursor = conn.cursor();
 	query = 'SELECT title, release_year, rating FROM movie'
 	cursor.execute(query,)
 	data = cursor.fetchall()
 	cursor.close()
-	return render_template('home.html', username=username, posts=data)
+	return render_template('movies.html', username=username, posts=data)
 
 @app.route('/logout')
 def logout():
 	session.pop('username')
 	return redirect('/')
-
-
-
 
 
 
