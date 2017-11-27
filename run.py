@@ -9,7 +9,7 @@ app.secret_key = 'a super secret key'
 #Configure MySQL
 conn = pymysql.connect(host='localhost',
                        user='root',
-                       password='erffy',
+                       password='',
                        db='project',
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
