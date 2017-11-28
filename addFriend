@@ -1,5 +1,4 @@
 
-
 #Define route for adding a friend
 @app.route('/addFriend')
 def addFriend():
@@ -19,16 +18,19 @@ def addFriendAuth():
     cursor.execute(query, (firstname, lastname))
     data = cursor.fetchall()
     error = None
-    
-    if len(data) > 1: #len()
+
+    #if more than one username is found under the same name, the user is directed to the Add Friend By Username page
+    if len(data) > 1: 
         return render_template('addFriendU.html')
-    
+
+    #checks if the friend is already in the friendgrou
     query = 'SELECT * FROM member WHERE username = (SELECT username FROM person WHERE first_name = %s AND last_name = %s) AND group_name = %s AND username_creator = %s' 
     cursor.execute(query, (firstname, lastname, friendGroup, username))
     data = cursor.fetchone()
-    
+
+    #if the friend is already in the group, redirects to add friend page
     if(data):
-        error = "This user already exists in this friend group"
+        error = "This user already exists in this friend group- please try again:"
         return render_template('addFriend.html', error = error)
     
     else:
@@ -51,13 +53,13 @@ def addFriendAuthU():
     friendGroup = request.form['friendGroup'] 
     friendName = request.form['friendUsername']
     cursor = conn.cursor()
-    query = 'SELECT * FROM member WHERE username = (SELECT username FROM person WHERE first_name = %s AND last_name = %s) AND group_name = %s AND username_creator = %s' 
-    cursor.execute(query, (firstname, lastname, friendGroup, username))
+    query = 'SELECT * FROM member WHERE username = %s AND group_name = %s AND username_creator = %s' 
+    cursor.execute(query, (friendName, friendGroup, username))
     data = cursor.fetchone()
     
     if(data):
         error = "This user already exists in this friend group"
-        return render_template('addFriend.html', error = error)
+        return render_template('addFriendU.html', error = error)
     else:
         ins = 'INSERT INTO member (group_name, username, username_creator) VALUES (%s, %s, %s)'
         cursor.execute(ins, (friendGroup, friendName, username))
