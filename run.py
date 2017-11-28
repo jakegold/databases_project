@@ -108,6 +108,30 @@ def user_content():
         data = cursor.fetchall()
         return render_template('content.html', username = user, posts=data)
 
+@app.route('/user_content')
+def user_content():
+        user = session['username']
+        cursor = conn.cursor();
+        query = 'SELECT * FROM content WHERE content.username = %s OR public = TRUE OR content.id IN (SELECT id FROM share WHERE group_name IN (SELECT group_name FROM member WHERE username = %s)) ORDER BY content.timest DESC'
+        cursor.execute(query, (user,user))
+        data = cursor.fetchall()
+        session['data'] = data
+        return render_template('content.html', username = user, posts=data)
+
+@app.route('/tags', methods=['GET', 'POST'])
+def tags():
+        user = session['username']
+        cursor = conn.cursor();
+        data = session['data']
+        content = request.form["view tags"]
+        tag_query = 'SELECT username_tagger, username_taggee FROM `tag` WHERE status = true AND id = %s'
+        comment_query = 'SELECT * FROM comment WHERE id =%s'
+        cursor.execute(tag_query, (content))
+        tag_data = cursor.fetchall()
+        cursor.execute(comment_query, (content))
+        comment_data = cursor.fetchall()
+        return render_template('content.html', username = user, posts=data, tags = tag_data, comments = comment_data)
+
 if __name__ == "__main__":
 	app.run('127.0.0.1', 5000, debug = True)
 
