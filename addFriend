@@ -12,7 +12,6 @@ def addFriendAuth():
     friendGroup = request.form['friendGroup'] 
     firstname = request.form['firstname']
     lastname = request.form['lastname']
-    #friendName = request.form['friendUsername']
     cursor = conn.cursor()
  
     #getting username of friend to add
@@ -23,15 +22,15 @@ def addFriendAuth():
     
     if len(data) > 1: #len()
         return render_template('addFriendU.html')
-
-    friendName = data[0]
     
-    query1 = 'SELECT * FROM member WHERE username = %s AND group_name = %s AND username_creator = %s' 
-    cursor.execute(query1, (friendName, friendGroup, username))
-    data1 = cursor.fetchone()	
-    if(data1):
+    query = 'SELECT * FROM member WHERE username = (SELECT username FROM person WHERE first_name = %s AND last_name = %s) AND group_name = %s AND username_creator = %s' 
+    cursor.execute(query, (firstname, lastname, friendGroup, username))
+    data = cursor.fetchone()
+    
+    if(data):
         error = "This user already exists in this friend group"
         return render_template('addFriend.html', error = error)
+    
     else:
         ins = 'INSERT INTO member (group_name, username, username_creator) VALUES (%s, (SELECT username FROM person WHERE first_name = %s AND last_name = %s), %s)'
         cursor.execute(ins, (friendGroup, firstname, lastname, username))
@@ -52,16 +51,16 @@ def addFriendAuthU():
     friendGroup = request.form['friendGroup'] 
     friendName = request.form['friendUsername']
     cursor = conn.cursor()
-    query1 = 'SELECT * FROM member WHERE username = %s AND group_name = %s AND username_creator = %s' 
-    cursor.execute(query1, (friendName, friendGroup, username))
-    data1 = cursor.fetchone()	
-##    if(data1):
-##        #If the previous query returns data, then user exists
-##        error = "This user already exists in this friend group"
-##        return render_template('addFriend.html', error = error)
-##     else:
-    ins = 'INSERT INTO member (group_name, username, username_creator) VALUES (%s, %s, %s)'
-    cursor.execute(ins, (friendGroup, friendName, username))
-    conn.commit()
-    cursor.close()
-    return render_template('home.html')
+    query = 'SELECT * FROM member WHERE username = (SELECT username FROM person WHERE first_name = %s AND last_name = %s) AND group_name = %s AND username_creator = %s' 
+    cursor.execute(query, (firstname, lastname, friendGroup, username))
+    data = cursor.fetchone()
+    
+    if(data):
+        error = "This user already exists in this friend group"
+        return render_template('addFriend.html', error = error)
+    else:
+        ins = 'INSERT INTO member (group_name, username, username_creator) VALUES (%s, %s, %s)'
+        cursor.execute(ins, (friendGroup, friendName, username))
+        conn.commit()
+        cursor.close()
+        return render_template('home.html')
