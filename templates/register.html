@@ -1,19 +1,25 @@
 <html>
 <head>
+	<h1><center>Register</center></h1>
 </head>
 <body>
+<center>
 <form action="/registerAuth" method="POST">
-	<input type="text" name = "username" placeholder="username" required/> </br>
+	<input type="text" name = "username" placeholder="username" required/></br>
 	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="text" name = "firstname" placeholder="Jane" /> </br>
+	<input type="text" name = "lastname" placeholder="Doe"/> </br>
 	<input type="submit" value = Register />
+
 	{% if error %}
 		<p class="error"><strong>Error:</strong> {{error}}</p>
 	{% endif %}
 </form>
-
+</center>
 <a href="/">Go back</a>
 
 </body>
 
 
 </html>
+
