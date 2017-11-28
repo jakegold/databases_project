@@ -98,16 +98,6 @@ def home():
 	data = ['cisi',]
 	return render_template('home.html', username=username, posts=data)
 
-
-@app.route('/user_content', methods=['GET', 'POST'])
-def user_content():
-        user = session['username']
-        cursor = conn.cursor();
-        query = 'SELECT * FROM content WHERE content.username = %s OR public = TRUE OR content.id IN (SELECT id FROM share WHERE group_name IN (SELECT group_name FROM member WHERE username = %s)) ORDER BY content.timest DESC'
-        cursor.execute(query, (user,user))
-        data = cursor.fetchall()
-        return render_template('content.html', username = user, posts=data)
-
 @app.route('/user_content')
 def user_content():
         user = session['username']
