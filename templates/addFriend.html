@@ -1,0 +1,27 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/addFriendAuth" method="POST">
+	<input type="text" name = "friendGroup" placeholder="Friend Group" required /> </br>
+	<input type="text" name = "firstname" placeholder="First Name" required/></br>
+  <input type="text" name = "lastname" placeholder="Last Name" require/d></br>
+ 
+	
+	{% if error1 %}
+		<p class="error"><strong>Error:</strong> {{error1}}
+		<!-- <input type="text" name = "friendUsername" placeholder="username" required  /></br>	 -->
+	{% endif %}
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+ <input type="submit" value = Add! />
+
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>
