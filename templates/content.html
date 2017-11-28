@@ -7,8 +7,6 @@
 	<h2>This is content you can see</h2>
 
 	
-
-
 <style type="text/css">
 	table, th, td{
 		border: 1px solid black;
@@ -25,19 +23,37 @@
 
 {% for line in posts %}
 	<tr>
-		<td>{{line.id}}</td>
+		<td>{{line.id}}</td> 
 		<td>{{line.username}}</td>
 		<td>{{line.timest}}</td>
 		<td>{{line.file_path}}</td>
 		<td>{{line.content_name}}</td>
 		<td>{{line.public}}</td>
+		<form action="/tags" method="POST">
+			<td><button type="submit" name="view tags" value={{line.id}}>More Info</td>
+		</form>
 	</tr>
 {% endfor %}
+
 </table>
- 
+
+{%if tags%}
+	<h3>Tags</h3>
+	{% for line2 in tags %}
+		<p>{{line2.username_tagger}} tagged {{line2.username_taggee}}</p>
+	{% endfor %}
+{%endif%}
+{%if comments%}
+<h3>Comments</h3>
+	{% for line2 in comments %}
+		<p>{{line2.username}}: {{line2.comment_text}}</p>
+	{% endfor %}
+</table>
+{%endif%}
 <br>
 <br>
 <br>
+
 <a href="/home">Go home</a>
 
 </body>
