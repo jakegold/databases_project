@@ -1,0 +1,41 @@
+<html>
+ <head>
+ </head>
+ <body>
+ 	<h1>Hello</h1> 
+ 
+ 	<h2>Which Group Would you like to post to?</h2>
+ {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+ 	
+ <style type="text/css">
+ 	table, th, td{
+ 		border: 1px solid black;
+ 	}
+ </style>
+ 
+ <table>
+ 	<th>groups</th>
+ {% for line in groups %}
+ 	<tr>
+ 		<td>{{line.group_name}}</td>
+ 		
+ 	</tr>
+ {% endfor %}
+ <form action="/post_content_group" method="POST">
+ 			<input type="text" name = "group name" placeholder="Enter Group Name" required /> </br>
+ 			<input type="submit" value = Add! />
+ </form>
+ </table>
+
+ <br>
+ <br>
+ <br>
+ 
+ <a href="/home">Go home</a>
+ 
+ </body>
+ 
+ 
+ </html>
