@@ -2,30 +2,28 @@
 <head>
 </head>
 <body>
-<form action="/post" method="POST">
 	<h1>Welcome {{username}}</h1> 
-	<input type="text" name = "blog" placeholder="post" required/> </br>
-	<input type="submit" value = Post />
-</form>
-<!-- 
-<style type="text/css">
-	table, th, td{
-		border: 1px solid black;
-	}
-</style>
 
-<table>
-	<th>Time</th>
-	<th>Post</th>
+	<h2>What would you like to do?</h2>
 
-{% for line in posts %}
-	<tr>
-		<td>{{line.ts}}</td>
-		<td>{{line.blog_post}}</td>
-	</tr>
-{% endfor %}
-</table>
- -->
+	<a href="/movies">Movies</a>
+	<a href="/bands">Bands</a>
+	<a href="/albums">Albums</a>
+	<a href="/songs">Songs</a>
+
+	<br>
+	<br>
+	<br>
+
+<br>
+<a href="/user_content">View Content</a>
+<br>
+<a href="/post_user_content">Post Content</a>
+<br>
+<a href="/create/FriendGroup">Create Friend Group</a>
+<br>
+<a href="/addFriend">Add Friend</a>
+<br>
 <a href="/logout">Logout</a>
 
 </body>
