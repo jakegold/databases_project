@@ -1,0 +1,49 @@
+<html>
+<head>
+</head>
+<body>
+	<h2>Welcome to the Movies and songs page!</h2>
+
+	{% if title_error %}
+		<p class="error"><strong>Error:</strong> {{title_error}}</p>
+	{% else %}
+
+		<br>
+		<h3>{{movie}}'s Songs</h3>
+		<br>
+
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{error}}</p>
+		{% else %}
+
+			<style type="text/css">
+				table, th, td{
+					border: 1px solid black;
+				}
+			</style>
+
+
+			<table>
+				<th>Songs</th>
+				<th>Artist</th>
+
+			{% for line in posts %}
+				<tr>
+					<td>{{line.title}}</td>
+					<td>{{line.artist}}</td>
+				</tr>
+			{% endfor %}
+			</table>
+
+		{% endif %}
+	{% endif %}
+ 
+<br>
+<br>
+<br>
+<a href="/home">Go home</a>
+
+</body>
+
+
+</html>
