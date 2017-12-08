@@ -432,23 +432,31 @@ def addSongAuth():
         songTitle = request.form['title'] 
         artist = request.form['artist']
         cursor = conn.cursor()
-        ins = 'INSERT INTO song (title, artist) VALUES (%s, %s)'
-        cursor.execute(ins, (songTitle, artist))
-        movie = request.form['movie']
-        if (movie):
-                movie_id = 'SELECT movieID FROM movie WHERE title = %s'
-                if (movie_id):
+        query = 'SELECT * FROM song WHERE title = %s'
+        cursor.execute(query, (songTitle))
+        data = cursor.fetchall()
+        #if more than one username is found under the same name, the user is directed to the Add Friend By Username page
+        if (data):
+                error = 'That song is already in the database - please try to enter it here:'
+                return render_template('addSongToMovie.html', error=error)
+        else:
+                ins = 'INSERT INTO song (title, artist) VALUES (%s, %s)'
+                cursor.execute(ins, (songTitle, artist))
+                movie = request.form['movie']
+                if (movie):
+                        movie_id = 'SELECT movieID FROM movie WHERE title = %s'
                         cursor.execute(movie_id, (movie))
-                        ID = cursor.fetchone()
-                        ID = ID['movieID']
-                        ins = 'INSERT INTO song_in_movie (movieID, title) VALUES (%s, %s)'
-                        cursor.execute(ins, (ID, songTitle))
-                else:
-                        error = 'This movie does not exist in the database!'
-                        return render_template('addSongToMovie.html', error=error)
-        conn.commit()
-        cursor.close()
-        return render_template('home.html')
+                        data = cursor.fetchall()
+                        if (data):
+                                ID = data['movieID']
+                                ins = 'INSERT INTO song_in_movie (movieID, title) VALUES (%s, %s)'
+                                cursor.execute(ins, (ID, songTitle))
+                        else:
+                                error = 'This movie does not exist in the database! Please enter the movie into the database, then try again:'
+                                return render_template('addMovie.html', error=error)
+                conn.commit()
+                cursor.close()
+                return render_template('home.html')
 
 #Define route for adding a soundtrack
 @app.route('/addSongToMovie')
@@ -462,15 +470,15 @@ def addSongToMovieAuth():
         cursor = conn.cursor()
         movie = request.form['movie']
         movie_id = 'SELECT movieID FROM movie WHERE title = %s'
-        if (movie_id):
-                cursor.execute(movie_id, (movie))
-                ID = cursor.fetchone()
+        cursor.execute(movie_id, (movie))
+        ID = cursor.fetchall()
+        if(ID):
                 ID = ID['movieID']
                 ins = 'INSERT INTO song_in_movie (movieID, title) VALUES (%s, %s)'
                 cursor.execute(ins, (ID, songTitle))
         else:
-                error = 'This movie does not exist in the database!'
-                return render_template('addSongToMovie.html', error=error)
+                error = 'This movie does not exist in the database! Please enter the movie into the database, then try again:'
+                return render_template('addMovie.html', error=error)
         conn.commit()
         cursor.close()
         return render_template('home.html')
