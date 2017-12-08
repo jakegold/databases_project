@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/addMovieAuth" method="POST">
+	<h20> Enter the title and release year of the movie you would like to add to the database:</h20>
+	</br>
+	</br>
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+	<input type="text" name = "title" placeholder="Title" required/> </br>
+  	<input type="text" name = "release_yr" placeholder="Release Year" /></br>
+	<input type="submit" value = Add! />
+	
+
+
+</form>
+<a href="/addSongToMovie">Add a Song to a Movie's Soundtrack</a>
+<a href="/home">Go back</a>
+
+</body>
+
+
+</html>

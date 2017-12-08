@@ -1,0 +1,26 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/addSongAuth" method="POST">
+	<h20> Please enter a song title and artist. If it is part of a movie sountrack, add that too: </h20>
+	</br>
+	</br>
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+	<input type="text" name = "title" placeholder="Song Title" required/> </br>
+  	<input type="text" name = "artist" placeholder="Song Artist" required /></br>
+  	<input type="text" name = "movie" placeholder="Movie Title (optional)" /></br>
+	<input type="submit" value = Add! />
+	
+
+
+</form>
+
+<a href="/home">Go back</a>
+
+</body>
+
+
+</html>
