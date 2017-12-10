@@ -64,40 +64,26 @@ username VARCHAR (50),
 PRIMARY KEY (id, group_name, username),
 FOREIGN KEY (id) REFERENCES Content(id),
 FOREIGN KEY (group_name, username) REFERENCES FriendGroup(group_name, username)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
+
 
 CREATE TABLE movie(
 	movieID int NOT NULL auto_increment,
 	title varchar(50),
-	release_year  int,
-    rating varchar(5),
+	release_yr int,
 	PRIMARY KEY(movieID)
 );
 
-CREATE TABLE band(
-	bandID int NOT NULL auto_increment,
-	title varchar(50),
-	PRIMARY KEY(bandID)
-);
-
-CREATE TABLE album(
-	albumID int NOT NULL auto_increment,
-	title varchar(50),
-    bandID int,
-    movieID int,
-	PRIMARY KEY(albumID),
-    FOREIGN KEY (bandID) references band(bandID)
-		on delete cascade,
-	FOREIGN KEY (movieID) references movie(movieID)
-		on delete set null
-);
-
 CREATE TABLE song(
-	songID int NOT NULL auto_increment,
 	title varchar(50),
-    albumID int,
-    duration int,
-	PRIMARY KEY(songID),
-    FOREIGN KEY (albumID) references album(albumID)
-		on delete cascade
+	artist varchar(50),
+	PRIMARY KEY(title)
 );
+
+CREATE TABLE song_in_movie(
+	movieID int,
+	title varchar(50),
+	PRIMARY KEY (movieID, title),
+	FOREIGN KEY (movieID) REFERENCES movie(movieID),
+	FOREIGN KEY (title) REFERENCES song(title)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
