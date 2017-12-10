@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/removeFriendAuth" method="POST">
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+	<input type="text" name = "friendGroup" placeholder="Friend Group" required /> </br>
+	<input type="text" name = "firstname" placeholder="First Name" required/></br>
+  	<input type="text" name = "lastname" placeholder="Last Name" require/d></br>
+ 
+ <input type="submit" value = Remove! />
+
+</form>
+
+<a href="/home">Go back</a>
+
+</body>
+
+
+</html>

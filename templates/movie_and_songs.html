@@ -1,0 +1,108 @@
+<html>
+<head>
+</head>
+<body>
+	<h2>Welcome to the Movies and songs page!</h2>
+
+	{% if title_error %}
+		<p class="error"><strong>Error:</strong> {{title_error}}</p>
+	{% else %}
+
+		<br>
+		<h3>{{movie}}'s Songs</h3>
+		<br>
+
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{error}}</p>
+		{% else %}
+
+			<style type="text/css">
+				table, th, td{
+					border: 1px solid black;
+				}
+			</style>
+
+
+			<table>
+				<th>Songs</th>
+				<th>Artist</th>
+
+			{% for line in posts %}
+				<tr>
+					<td>{{line.title}}</td>
+					<td>{{line.artist}}</td>
+				</tr>
+			{% endfor %}
+			</table>
+
+			<!-- Something here about posting this movie content -->
+			<br>
+			<br>
+			{% if groups %}
+			<p>Share this content with a group</p>
+
+			<form action="/movie/post" method="POST">
+
+				<div class="col-3">
+					<label for="select" class="col-lg-12 control-label">Friend Groups</label>
+					<div class="col-lg-4">
+						<select name="group_name" class="form-control" id="select">
+							{% for group_name in groups %}
+								<option value="{{ group_name}}">{{ group_name}}</option>
+							{% endfor %}
+						</select>
+						<input type="hidden" name = "movieID" value = {{ movieID }}>  </input>
+					</div>
+					<br>
+					<div class="col-lg-12">
+	            		<input type="submit" value="Submit"/>
+	          		</div>
+
+			</form>
+
+
+				<!-- <form action="/loginAuth" method="POST">
+					<div class"col-3">
+	            		<label for="inputName" class="col-lg-12 control-label">User Name</label>
+	            		<div class="col-lg-4">
+	            			<input type="text" name = "username" placeholder="User Name" required/></br></br>
+	            		</div>
+					</div>
+					<div class"col-3">
+	            		<label for="inputName" class="col-lg-12 control-label">Password</label>
+	            			<div class="col-lg-4">
+	              				<input type="password" name = "password" placeholder="password" required/></br></br>
+	           				</div>
+					</div>
+
+					<div class="col-lg-12">
+	            		<input type="submit" value="Submit"/>
+	          		</div>
+
+					{% if error %}
+						<p class="error"><strong>Error:</strong> {{error}}</p>
+					{% endif %}
+				</form> -->
+
+
+
+
+
+			{% endif %}
+</div>
+
+
+
+
+		{% endif %}
+	{% endif %}
+ 
+<br>
+<br>
+<br>
+<a href="/movies">Go Back</a>
+
+</body>
+
+
+</html>
