@@ -31,9 +31,15 @@
 			<br>
 			<a href="/addFriend">Add Friend</a>
 			<br>
+			<a href="/manage_tags">Manage Tags</a>
+			<br>
 			<a href="/logout">Logout</a>
+			{% if error %}
+			<h4>Error: {{error}} </h4>
+			{%endif%}
 		</div>
 	</body>
 
 
 </html>
+
