@@ -21,6 +21,8 @@
             <th scope="col">Filepath</th>
             <th scope="col">Content Name</th>
             <th scope="col">Is Public</th>
+            <th></th>
+            <th scope="col">Tag Someone</th>
           </tr>
         </thead>
         <tbody>
@@ -32,9 +34,15 @@
           		<td>{{line.file_path}}</td>
           		<td>{{line.content_name}}</td>
           		<td>{{line.public}}</td>
-          		<form action="/tags" method="POST">
-          			<td><button type="submit" name="view tags" value={{line.id}}>More Info</td>
+          		<form action="/content_info" method="POST">
+          			<td><button type="submit" name="view content" value={{line.id}}>More Info</td>
           		</form>
+              <form action="/tag_content" method="POST">
+                <td>
+                  <input type="text" name = "friend_username" placeholder="Enter Username" required/></br></br>
+                  <button type="submit" name="content_id" value={{line.id}}>tag
+                </td>
+              </form>
           	</tr>
           {% endfor %}
         </tbody>
