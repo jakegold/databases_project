@@ -13,10 +13,10 @@
 				<h1>Welcome, {{username}}</h1>
 
 				<h3>What would you like to do?</h3>
-
+				{%if error%}
+					<p>Error: {{error}}</p>
+				{%endif%}
 				<a href="/movies">Movies</a>
-				<a href="/bands">Bands</a>
-				<a href="/albums">Albums</a>
 				<a href="/songs">Songs</a>
 
 				<div class="row">
@@ -29,7 +29,18 @@
 			<br>
 			<a href="/create/FriendGroup">Create Friend Group</a>
 			<br>
+			<a href="/view/FriendGroup">View Friend Group Content</a>
+			<br>
+			<a href="/manage_tags">Manage Tags</a>
+			<br>
 			<a href="/addFriend">Add Friend</a>
+			<br>
+			<a href="/removeFriend">Remove Friend</a>
+			<br>
+			<a href="/addMovie">Add Movie</a>
+			<br>
+			<a href="/addSong">Add Song</a>
+			<br>
 			<br>
 			<a href="/logout">Logout</a>
 		</div>

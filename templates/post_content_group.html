@@ -1,41 +1,70 @@
 <html>
- <head>
- </head>
- <body>
- 	<h1>Hello</h1> 
- 
- 	<h2>Which Group Would you like to post to?</h2>
- {% if error %}
-		<p class="error"><strong>Error:</strong> {{error}}</p>
-{% endif %}
- 	
- <style type="text/css">
- 	table, th, td{
- 		border: 1px solid black;
- 	}
- </style>
- 
- <table>
- 	<th>groups</th>
- {% for line in groups %}
- 	<tr>
- 		<td>{{line.group_name}}</td>
- 		
- 	</tr>
- {% endfor %}
- <form action="/post_content_group" method="POST">
- 			<input type="text" name = "group name" placeholder="Enter Group Name" required /> </br>
- 			<input type="submit" value = Add! />
- </form>
- </table>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+  </head>
+   <body>
+     <div class="container-fluid">
+ 			<div class="row">
+ 				<div class="col-lg-12">
+ 					<h1 class="display-1">PriCoSha</h1>
+ 					<h3>Which Group Would you like to post to?</h3>
+ 				</div>
+ 			</div>
+     	{% if error %}
+    		<p class="error"><strong>Error:</strong> {{error}}</p>
+      {% endif %}
+      <div class="row">
+      <div class="col-lg-2">
+      <table class="table table-bordered">
+      	<th>Groups</th>
+      {% for line in groups %}
+      	<tr>
+      		<td>{{line.group_name}}</td>
 
- <br>
- <br>
- <br>
- 
- <a href="/home">Go home</a>
- 
- </body>
- 
- 
+      	</tr>
+      {% endfor %}
+      <form action="/post_content_group" method="POST">
+            <label for="inputName" class="control-label">Friend Group</label>
+            <div>
+      			<input type="text" name = "group name" placeholder="Enter Group Name" required /> </br></br>
+            </div>
+      			<input type="submit" value = Submit />
+          </br>
+      </form>
+      </table>
+      </div>
+      </div>
+      <!--
+      <div class="row">
+			<div class="col-lg-3">
+				<table class="table table-bordered">
+	        <thead>
+	          <tr>
+	            <th scope="col">groups</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {% for line in posts %}
+	          	<tr>
+	          		<td>{{line.group_name}}</td>
+	          	</tr>
+	          {% endfor %}
+	        </tbody>
+          <form action="/post_content_group" method="POST">
+          			<input type="text" name = "group name" placeholder="Enter Group Name" required /> </br>
+          			<input type="submit" value = Add! />
+          </form>
+	      </table>
+			</div>
+		</div>
+  -->
+
+     
+
+     <a href="/home">Go home</a>
+     </div>
+   </body>
+
+
  </html>

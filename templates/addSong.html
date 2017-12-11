@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="display-1">PriCoSha</h1>
+					<h3>Please enter a song title and artist. If it is part of a movie sountrack, add that too:</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class"col-lg-12">
+					<form action="/addSongAuth" method="POST">
+						{% if error %}
+							<p class="error"><strong>Error:</strong> {{error}}</p>
+						{% endif %}
+						<div class"col-3">
+							<label for="inputName" class="col-lg-12 control-label">Song Title</label>
+							<div class="col-lg-4">
+								<input type="text" name = "title" placeholder="Song Title" required/> </br></br>
+							</div>
+						</div>
+						<div class"col-3">
+							<label for="inputName" class="col-lg-12 control-label">Song Artist</label>
+							<div class="col-lg-4">
+								<input type="text" name = "artist" placeholder="Song Artist" required /></br></br>
+							</div>
+						</div>
+						<div class"col-3">
+							<label for="inputName" class="col-lg-12 control-label">Movie Title (optional)</label>
+							<div class="col-lg-4">
+								<input type="text" name = "movie" placeholder="Movie Title (optional)" /></br></br>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<input type="submit" value = submit /></br></br>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-3">
+				<a href="/home">Go back</a>
+			</div>
+		</div>
+	</body>
+
+
+</html>
